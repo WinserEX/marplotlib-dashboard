@@ -17,6 +17,9 @@ link2 = f"https://docs.google.com/spreadsheets/d/{iddoc2}/export?format=csv&{gid
 
 df = pd.read_csv(link2)
 
+# Convert all columns to integers
+df = df.apply(pd.to_numeric, errors='coerce').fillna(0).astype(int)
+
 # Group by DESC_PROD and aggregate the selected metric
 def group_and_aggregate(df, column):
     grouped_df = df.groupby('DESC_PROD').sum().reset_index()
